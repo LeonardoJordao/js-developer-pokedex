@@ -1,47 +1,56 @@
-const pokemonList = document.getElementById('pokemonList')
-const loadMoreButton = document.getElementById('loadMoreButton')
+import pokeApi from './poke-api.js';
 
-const maxRecords = 151
-const limit = 10
+const pokemonList = document.querySelector('#pokemonList');
+const loadMoreButton = document.querySelector('#loadMoreButton');
+const loading = document.querySelector('#loading');
+
+const maxRecords = 151;
+const LIMIT = 12;
 let offset = 0;
 
-function convertPokemonToLi(pokemon) {
-    return `
-        <li class="pokemon ${pokemon.type}">
-            <span class="number">#${pokemon.number}</span>
-            <span class="name">${pokemon.name}</span>
+const convertPokemonToLi = pokemon => {
+  return `
+    <li class="pokemon ${pokemon.type}">
+      <span class="number">#${pokemon.number}</span>
+      <span class="name">${pokemon.name}</span>
+      <div class="detail">
+        <ol class="types">
+          ${pokemon.types.map(type => `<li class="type ${type}">${type}</li>`).join('')}
+        </ol>
+        <img
+          src="${pokemon.image}"
+          alt="${pokemon.name}"
+        />
+      </div>
+    </li>`;
+};
 
-            <div class="detail">
-                <ol class="types">
-                    ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
-                </ol>
+const loadPokemonItens = (offset, limit) => {
+  loadMoreButton.style.display = 'none';
+  loading.style.display = 'block';
 
-                <img src="${pokemon.photo}"
-                     alt="${pokemon.name}">
-            </div>
-        </li>
-    `
-}
+  pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
+    const pokemonLi = pokemons.map(convertPokemonToLi).join('');
+    pokemonList.innerHTML += pokemonLi;
 
-function loadPokemonItens(offset, limit) {
-    pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
-        const newHtml = pokemons.map(convertPokemonToLi).join('')
-        pokemonList.innerHTML += newHtml
-    })
-}
+    loading.style.display = 'none';
+    if (offset + LIMIT >= maxRecords) {
+      loadMoreButton.style.display = 'none';
+    } else {
+      loadMoreButton.style.display = 'block';
+    }
+  });
+};
 
-loadPokemonItens(offset, limit)
+loadPokemonItens(offset, LIMIT);
 
 loadMoreButton.addEventListener('click', () => {
-    offset += limit
-    const qtdRecordsWithNexPage = offset + limit
+  offset += LIMIT;
 
-    if (qtdRecordsWithNexPage >= maxRecords) {
-        const newLimit = maxRecords - offset
-        loadPokemonItens(offset, newLimit)
-
-        loadMoreButton.parentElement.removeChild(loadMoreButton)
-    } else {
-        loadPokemonItens(offset, limit)
-    }
-})
+  if (offset + LIMIT >= maxRecords) {
+    const newLimit = maxRecords - offset;
+    loadPokemonItens(offset, newLimit);
+  } else {
+    loadPokemonItens(offset, LIMIT);
+  }
+});
