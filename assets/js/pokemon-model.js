@@ -4,6 +4,9 @@ class Pokemon {
   type;
   types = [];
   image;
+  height;
+  weight;
+  species;
 }
 
 export default Pokemon;

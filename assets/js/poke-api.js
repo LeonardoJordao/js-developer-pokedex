@@ -9,7 +9,15 @@ const convertDetailToPokemonModel = pokeDetail => {
   pokemon.name = pokeDetail.name;
   pokemon.type = pokeDetail.types[0].type.name;
   pokemon.types = pokeDetail.types.map(typeSlot => typeSlot.type.name);
+  // pokemon.image = pokeDetail.sprites.front_default;
+  // pokemon.image = pokeDetail.sprites.other.home.front_default;
+  // pokemon.image = pokeDetail.sprites.other['official-artwork'].front_default;
   pokemon.image = pokeDetail.sprites.other.dream_world.front_default;
+
+  pokemon.height = pokeDetail.height;
+  pokemon.weight = pokeDetail.weight;
+  pokemon.species = pokeDetail.species.url;
+
   return pokemon;
 };
 
