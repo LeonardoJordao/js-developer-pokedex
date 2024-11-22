@@ -10,9 +10,7 @@
 .pokemon {
   display: flex;
   flex-direction: column;
-  /* margin: .5rem; */
   padding: 0.7rem;
-  /* border-radius: 1rem; */
   color: #fff;
   border-radius: 0.6rem;
   max-width: 260px;
@@ -21,10 +19,8 @@
 
 .pokemon .number {
   color: #000;
-  /* color: white; */
   opacity: 0.3;
   text-align: right;
-  /* font-size: 0.625rem; */
   font-size: 0.825rem;
 }
 
@@ -68,7 +64,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* width: 100%; */
   padding: 1rem;
   font-size: .750rem;
 }
@@ -84,21 +79,17 @@
   display: none;
 }
 
-/* li>a {
-  text-decoration: none;
-  color: #fff;
-} */
-
 .hidden {
   display: none;
 }
 
 .modal {
   width: 450px;
-  /* padding: 1rem; */
   min-height: 200px;
   position: absolute;
-  top: 20%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
@@ -109,10 +100,15 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 90%;
+  font-size: 86%;
   font-weight: 300;
-  padding: 1rem 1.5rem;
+  padding: 0 1.5rem 1rem;
   border-radius: 0.5rem;
+}
+
+.modal-body {
+  background-color: rgba(180, 180, 180, 0.3);
+
 }
 
 .modal .name {
@@ -123,20 +119,21 @@
   max-width: 100%;
   align-self: flex-end;
   position: relative;
-  top: 3rem;
+  top: 2.5rem;
 }
 
 .modal .btn-close {
   align-self: flex-end;
   font-size: 0.85rem;
   padding: 0.25rem 0.4rem;
-  background: #eee;
-  border-radius: 50%;
+  margin-top: 1rem;
+  background: none;
+  border: none;
   cursor: pointer;
 }
 
 .modal p, .modal li {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #fff;
   margin-bottom: 0.2rem;
 }
@@ -150,7 +147,7 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(1.5px);
   z-index: 1;
 }
 
